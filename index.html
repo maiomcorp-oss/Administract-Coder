@@ -1,0 +1,1775 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administract 8.0 - +300 Comandos</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#00ffcc">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: #0a0a0a;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container { max-width: 1400px; margin: 0 auto; }
+        .header {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #00ffcc22, #00ffcc11);
+            border-radius: 20px;
+            border: 2px solid #00ffcc;
+            margin-bottom: 30px;
+        }
+        .header h1 { color: #00ffcc; font-size: 3em; text-shadow: 0 0 30px #00ffcc44; }
+        .header p { color: #aaa; font-size: 1.2em; }
+        .editor-area {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        @media (max-width: 768px) { .editor-area { grid-template-columns: 1fr; } }
+        textarea {
+            width: 100%;
+            height: 500px;
+            background: #1a1a1a;
+            color: #a9ffb4;
+            border: 2px solid #00ffcc;
+            padding: 15px;
+            font-size: 14px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            resize: vertical;
+        }
+        .botoes {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        .btn-executar { background: #00ffcc; color: #000; }
+        .btn-executar:hover { transform: scale(1.05); background: #00ddbb; }
+        .btn-limpar { background: #e74c3c; color: #fff; }
+        .btn-limpar:hover { transform: scale(1.05); background: #c0392b; }
+        .btn-exemplo { background: #3498db; color: #fff; }
+        .btn-exemplo:hover { transform: scale(1.05); background: #2980b9; }
+        .btn-compilar { background: #f39c12; color: #fff; }
+        .btn-compilar:hover { transform: scale(1.05); background: #e67e22; }
+        .btn-comandos { background: #9b59b6; color: #fff; }
+        .btn-comandos:hover { transform: scale(1.05); background: #8e44ad; }
+        
+        #painel {
+            background: #0d0d0d;
+            border: 2px solid #333;
+            border-radius: 10px;
+            padding: 30px;
+            min-height: 500px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .comandos-lista {
+            background: #1a1a1a;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            max-height: 600px;
+            overflow-y: auto;
+            border: 1px solid #333;
+        }
+        .comandos-lista h3 { color: #00ffcc; margin-bottom: 15px; }
+        .comando-item {
+            display: inline-block;
+            background: #2d2d2d;
+            padding: 3px 10px;
+            margin: 3px;
+            border-radius: 5px;
+            font-size: 11px;
+            color: #ffd700;
+            border: 1px solid #444;
+        }
+        .comando-item span { color: #a9ffb4; }
+        .categoria {
+            color: #ff6b6b;
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+        .sub-categoria {
+            color: #ffd700;
+            margin-top: 5px;
+            display: block;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 ADMINISTRACT 8.0</h1>
+            <p>Codifique rapidamente em poucas linhas de Codigo</p>
+            <p style="color: #ffd700; font-size: 0.9em;">Agora com 320 comandos totais!</p>
+        </div>
+
+        <div class="editor-area">
+            <div>
+                <div class="botoes">
+                    <button class="btn-executar" onclick="executar()">▶ EXECUTAR</button>
+                    <button class="btn-limpar" onclick="limpar()">🗑️ LIMPAR</button>
+                    <button class="btn-exemplo" onclick="exemploIoruba()">base </button>
+                    <button class="btn-compilar" onclick="compilar()">📦 COMPILAR</button>
+                    <button class="btn-comandos" onclick="mostrarComandos()">📚 COMANDOS</button>
+                </div>
+                <textarea id="codigo" placeholder="Digite seu código Administract 8.0 aqui..."></textarea>
+            </div>
+            <div>
+                <h3 style="color: #00ffcc; margin-bottom: 10px;">📺 VISUALIZAÇÃO</h3>
+                <div id="painel"></div>
+            </div>
+        </div>
+
+        <div class="comandos-lista" id="lista-comandos" style="display:none;">
+            <h3>📚 ADMINISTRACT 8.0 - TODOS OS +300 COMANDOS</h3>
+            <div id="comandos-grid"></div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // ADMINISTRACT 8.0 - INTERPRETADOR +300 COMANDOS
+        // ============================================
+        
+        let elementos = {};
+        let variaveis = {};
+        let colisoes = {};
+        let loopAtivo = null;
+        let timers = [];
+        let loops = [];
+        let animacoes = [];
+        let eventos = {};
+        let bibliotecas = {};
+
+        // ============================================
+        // +300 NOVOS COMANDOS
+        // ============================================
+
+        const comandos8 = {
+            // Comandos de Texto (30)
+            texto: ['titulo', 'subtitulo', 'paragrafo', 'texto-central', 'texto-direita', 'texto-esquerda', 'texto-grande', 'texto-pequeno', 'texto-colorido', 'texto-fundo', 'texto-sombra', 'texto-gradiente', 'texto-borda', 'texto-arredondado', 'texto-destaque', 'texto-piscante', 'texto-negrito', 'texto-italico', 'texto-sublinhado', 'texto-riscado', 'texto-maiusculo', 'texto-minusculo', 'texto-capitalizado', 'texto-espacado', 'texto-sombreado', 'texto-brilhante', 'texto-neumorfico', 'texto-glass', 'texto-metalico', 'texto-neon'],
+            
+            // Comandos de Cores (30)
+            cores: ['cor-fundo', 'cor-texto', 'cor-borda', 'cor-primaria', 'cor-secundaria', 'cor-destaque', 'gradiente', 'gradiente-radial', 'gradiente-conico', 'fundo-imagem', 'fundo-transparente', 'fundo-escuro', 'fundo-claro', 'fundo-azul', 'fundo-verde', 'fundo-vermelho', 'fundo-ouro', 'fundo-roxo', 'fundo-rosa', 'fundo-cinza', 'fundo-preto', 'fundo-branco', 'fundo-verde-escuro', 'fundo-azul-escuro', 'fundo-vermelho-escuro', 'fundo-laranja', 'fundo-amarelo', 'fundo-cyan', 'fundo-magenta', 'fundo-turquesa'],
+            
+            // Comandos de Input (25)
+            inputs: ['input-text', 'input-number', 'input-email', 'input-password', 'input-date', 'input-time', 'input-datetime', 'input-color', 'input-range', 'input-search', 'input-tel', 'input-url', 'input-file', 'input-hidden', 'input-month', 'input-week', 'input-datetime-local', 'input-image', 'input-reset', 'input-submit', 'input-button', 'textarea-input', 'checkbox', 'radio', 'select', 'select-multiple', 'datalist', 'fieldset', 'legend', 'label'],
+            
+            // Comandos de Links (20)
+            links: ['link', 'link-novo', 'link-botao', 'link-imagem', 'link-email', 'link-telefone', 'link-whatsapp', 'link-instagram', 'link-twitter', 'link-youtube', 'link-facebook', 'link-linkedin', 'link-github', 'link-discord', 'link-tiktok', 'link-pinterest', 'link-snapchat', 'link-telegram', 'link-signal', 'link-website'],
+            
+            // Comandos de Upload (20)
+            upload: ['upload-arquivo', 'upload-imagem', 'upload-pdf', 'upload-zip', 'upload-multiplo', 'upload-pasta', 'upload-doc', 'upload-xls', 'upload-ppt', 'upload-txt', 'upload-csv', 'upload-json', 'upload-xml', 'upload-html', 'upload-css', 'upload-js', 'upload-mp3', 'upload-mp4', 'upload-avi', 'upload-todos'],
+            
+            // Comandos de Download (15)
+            download: ['download-arquivo', 'download-texto', 'download-json', 'download-csv', 'download-imagem', 'download-pdf', 'download-zip', 'download-doc', 'download-xls', 'download-ppt', 'download-html', 'download-css', 'download-js', 'download-mp3', 'download-mp4'],
+            
+            // Comandos de Layout (30)
+            layout: ['espaco', 'espaco-pequeno', 'espaco-medio', 'espaco-grande', 'espaco-duplo', 'linha-horizontal', 'linha-vertical', 'quebra-linha', 'coluna', 'linha', 'container-flex', 'grid', 'padding', 'margin', 'centralizar', 'alinhar-centro', 'alinhar-direita', 'alinhar-esquerda', 'justificar', 'flex-row', 'flex-column', 'flex-wrap', 'flex-nowrap', 'flex-center', 'flex-between', 'flex-around', 'flex-evenly', 'grid-2', 'grid-3', 'grid-4', 'grid-5', 'grid-6'],
+            
+            // Comandos de Bibliotecas (25)
+            bibliotecas: ['usar-biblioteca', 'importar-css', 'importar-js', 'importar-fonte', 'usar-jquery', 'usar-bootstrap', 'usar-react', 'usar-vue', 'usar-angular', 'usar-tailwind', 'usar-fontawesome', 'usar-chartjs', 'usar-threejs', 'usar-phaser', 'usar-p5js', 'usar-d3', 'usar-moment', 'usar-axios', 'usar-lodash', 'usar-underscore', 'usar-backbone', 'usar-ember', 'usar-svelte', 'usar-nextjs', 'usar-nuxtjs'],
+            
+            // Comandos de Ações (30)
+            acoes: ['onclick', 'ondblclick', 'onchange', 'oninput', 'onsubmit', 'onfocus', 'onblur', 'onkeydown', 'onkeyup', 'onkeypress', 'onmouseenter', 'onmouseleave', 'onmousemove', 'onmousedown', 'onmouseup', 'onwheel', 'onscroll', 'onresize', 'onload', 'onunload', 'onerror', 'onabort', 'oncontextmenu', 'ondrag', 'ondrop', 'onselect', 'oncopy', 'oncut', 'onpaste', 'ontoggle'],
+            
+            // Comandos de Jogo (30)
+            jogo: ['player', 'obstaculo', 'colising', 'inimigo', 'moeda', 'vida', 'pontuacao', 'fase', 'game-over', 'reset-jogo', 'pausar-jogo', 'continuar-jogo', 'salvar-jogo', 'carregar-jogo', 'nivel', 'xp', 'habilidade', 'inventario', 'arma', 'escudo', 'pocao', 'baus', 'portal', 'checkpoint', 'cronometro', 'recorde', 'ranking', 'conquista', 'trofeu', 'medalha'],
+            
+            // Comandos de Mídia (20)
+            midia: ['imagem', 'video', 'audio', 'iframe', 'embed', 'objeto', 'param', 'source', 'track', 'map', 'area', 'canvas', 'svg', 'circle', 'rect', 'path', 'text-svg', 'gif', 'animacao', 'transicao'],
+            
+            // Comandos de Banco (15)
+            banco: ['armazenar', 'recuperar', 'remover-storage', 'limpar-storage', 'salvar-sessao', 'recuperar-sessao', 'remover-sessao', 'criar-cookie', 'ler-cookie', 'remover-cookie', 'indexeddb', 'localdb', 'cache', 'service-worker', 'web-worker'],
+            
+            // Comandos de Rede (15)
+            rede: ['requisicao', 'fetch', 'ajax', 'jsonp', 'websocket', 'sse', 'api', 'rest', 'graphql', 'soap', 'rpc', 'socket', 'mqtt', 'webhook', 'restful'],
+            
+            // Comandos de Utilidades (25)
+            utilidades: ['alert', 'confirm', 'prompt', 'console', 'debug', 'log', 'erro', 'sucesso', 'info', 'aviso', 'math-random', 'math-floor', 'math-ceil', 'math-round', 'math-max', 'math-min', 'math-sqrt', 'math-pow', 'data-hora', 'data-formatada', 'hora-formatada', 'diferenca-data', 'timestamp', 'uuid', 'hash'],
+            
+            // Comandos de Interface (25)
+            interface: ['modal', 'popup', 'tooltip', 'accordion', 'tabs', 'carousel', 'slider', 'dropdown', 'navbar', 'sidebar', 'footer', 'header', 'section', 'article', 'aside', 'nav', 'main', 'details', 'summary', 'progress', 'meter', 'dialog', 'menu', 'menuitem', 'menu-button'],
+            
+            // Comandos de Animação (20)
+            animacao: ['animar', 'transicao', 'fade-in', 'fade-out', 'slide-in', 'slide-out', 'zoom-in', 'zoom-out', 'rotate', 'scale', 'move', 'pulse', 'bounce', 'shake', 'flip', 'glow', 'blur', 'sparkle', 'rainbow', 'gradient-move']
+        };
+
+        // ============================================
+        // INTERPRETADOR PRINCIPAL
+        // ============================================
+
+        function executar() {
+            const painel = document.getElementById('painel');
+            const codigo = document.getElementById('codigo').value;
+            
+            if (loopAtivo) clearInterval(loopAtivo);
+            timers.forEach(t => clearTimeout(t));
+            loops.forEach(l => clearInterval(l));
+            timers = [];
+            loops = [];
+            painel.innerHTML = '';
+            elementos = {};
+            variaveis = {};
+            colisoes = {};
+            animacoes = [];
+
+            const linhas = codigo.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+            linhas.forEach(linha => {
+                const comandos = linha.split(';').map(c => c.trim());
+                comandos.forEach(cmd => {
+                    if (!cmd) return;
+                    let comando = cmd;
+                    if (cmd.startsWith('administract>c>')) {
+                        comando = cmd.replace('administract>c>', '').trim();
+                    }
+                    interpretar8(comando, painel);
+                });
+            });
+        }
+
+        function interpretar8(comando, painel) {
+            // ==========================================
+            // COMANDOS DE TEXTO (30)
+            // ==========================================
+            if (comando.startsWith('titulo ')) {
+                const match = comando.match(/titulo\s+"([^"]+)"(?:\s+tamanho=(\d+))?/);
+                if (match) {
+                    const el = document.createElement(`h${match[2] || '2'}`);
+                    el.textContent = match[1];
+                    el.style.cssText = 'color:#00ffcc;margin:15px 0;text-shadow:0 0 20px #00ffcc33;';
+                    painel.appendChild(el);
+                }
+            }
+            else if (comando.startsWith('subtitulo ')) {
+                const match = comando.match(/subtitulo\s+"([^"]+)"/);
+                if (match) {
+                    const el = document.createElement('h3');
+                    el.textContent = match[1];
+                    el.style.cssText = 'color:#ffd700;margin:10px 0;';
+                    painel.appendChild(el);
+                }
+            }
+            else if (comando.startsWith('paragrafo ')) {
+                const match = comando.match(/paragrafo\s+"([^"]+)"/);
+                if (match) {
+                    const el = document.createElement('p');
+                    el.textContent = match[1];
+                    el.style.cssText = 'color:#aaa;margin:8px 0;line-height:1.8;';
+                    painel.appendChild(el);
+                }
+            }
+            else if (comando.startsWith('texto-central ')) {
+                const match = comando.match(/texto-central\s+"([^"]+)"/);
+                if (match) {
+                    const el = document.createElement('div');
+                    el.textContent = match[1];
+                    el.style.cssText = 'text-align:center;color:#fff;padding:10px;';
+                    painel.appendChild(el);
+                }
+            }
+            else if (comando.startsWith('texto-direita ')) {
+                const match = comando.match(/texto-direita\s+"([^"]+)"/);
+                if (match) {
+                    const el = document.createElement('div');
+                    el.textContent = match[1];
+                    el.style.cssText = 'text-align:right;color:#fff;padding:10px;';
+                    painel.appendChild(el);
+                }
+            }
+            else if (comando.startsWith('texto-esquerda ')) {
+                const match = comando.match(/texto-esquerda\s+"([^"]+)"/);
+                if (match) {
+                    const el = document.createElement('div');
+                    el.textContent = match[1];
+                    el.style.cssText = 'text-align:left;color:#fff;padding:10px;';
+                    painel.appendChild(el);
+                }
+            }
+            else if (comando.startsWith('texto-grande ')) {
+                const match = comando.match(/texto-grande\s+"([^"]+)"/);
+                if (match) {
+                    const el = document.createElement('div');
+                    el.textContent = match[1];
+                    el.style.cssText = 'font-size:2em;color:#fff;margin:10px 0;';
+                    painel.appendChild(el);
+                }
+            }
+            else if (comando.startsWith('texto-pequeno ')) {
+                const match = comando.match(/texto-pequeno\s+"([^"]+)"/);
+                if (match) {
+                    const el = document.createElement('small');
+                    el.textContent = match[1];
+                    el.style.cssText = 'font-size:0.8em;color:#888;';
+                    painel.appendChild(el);
+                }
+            }
+            else if (comando.startsWith('texto-colorido ')) {
+                const match = comando.match(/texto-colorido\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) {
+                    const el = document.createElement('span');
+                    el.textContent = match[1];
+                    el.style.cssText = `color:${match[2]};font-size:18px;margin:5px;display:inline-block;`;
+                    painel.appendChild(el);
+                }
+            }
+            else if (comando.startsWith('texto-fundo ')) {
+                const match = comando.match(/texto-fundo\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) {
+                    const el = document.createElement('span');
+                    el.textContent = match[1];
+                    el.style.cssText = `background:${match[2]};color:#fff;padding:8px 15px;border-radius:8px;margin:5px;display:inline-block;`;
+                    painel.appendChild(el);
+                }
+            }
+            else if (comando.startsWith('texto-gradiente ')) {
+                const match = comando.match(/texto-gradiente\s+"([^"]+)"\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) {
+                    const el = document.createElement('span');
+                    el.textContent = match[1];
+                    el.style.cssText = `background:linear-gradient(to right, ${match[2]}, ${match[3]});-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:28px;font-weight:bold;display:inline-block;margin:5px;`;
+                    painel.appendChild(el);
+                }
+            }
+            else if (comando.startsWith('texto-destaque ')) {
+                const match = comando.match(/texto-destaque\s+"([^"]+)"/);
+                if (match) {
+                    const el = document.createElement('span');
+                    el.textContent = match[1];
+                    el.style.cssText = 'background:#ffd700;color:#000;padding:8px 20px;border-radius:8px;font-weight:bold;display:inline-block;margin:5px;';
+                    painel.appendChild(el);
+                }
+            }
+            else if (comando.startsWith('texto-piscante ')) {
+                const match = comando.match(/texto-piscante\s+"([^"]+)"/);
+                if (match) {
+                    const el = document.createElement('span');
+                    el.textContent = match[1];
+                    el.style.cssText = 'animation:piscar 0.8s infinite;color:#ff6b6b;font-weight:bold;display:inline-block;margin:5px;';
+                    if (!document.querySelector('style[data-piscar]')) {
+                        const style = document.createElement('style');
+                        style.dataset.piscar = 'true';
+                        style.textContent = '@keyframes piscar{0%,100%{opacity:1}50%{opacity:0}}';
+                        document.head.appendChild(style);
+                    }
+                    painel.appendChild(el);
+                }
+            }
+            else if (comando.startsWith('texto-negrito ')) {
+                const match = comando.match(/texto-negrito\s+"([^"]+)"/);
+                if (match) {
+                    const el = document.createElement('strong');
+                    el.textContent = match[1];
+                    el.style.cssText = 'font-weight:bold;color:#fff;';
+                    painel.appendChild(el);
+                }
+            }
+            else if (comando.startsWith('texto-italico ')) {
+                const match = comando.match(/texto-italico\s+"([^"]+)"/);
+                if (match) {
+                    const el = document.createElement('em');
+                    el.textContent = match[1];
+                    el.style.cssText = 'font-style:italic;color:#fff;';
+                    painel.appendChild(el);
+                }
+            }
+            else if (comando.startsWith('texto-sublinhado ')) {
+                const match = comando.match(/texto-sublinhado\s+"([^"]+)"/);
+                if (match) {
+                    const el = document.createElement('u');
+                    el.textContent = match[1];
+                    el.style.cssText = 'text-decoration:underline;color:#fff;';
+                    painel.appendChild(el);
+                }
+            }
+            else if (comando.startsWith('texto-riscado ')) {
+                const match = comando.match(/texto-riscado\s+"([^"]+)"/);
+                if (match) {
+                    const el = document.createElement('del');
+                    el.textContent = match[1];
+                    el.style.cssText = 'text-decoration:line-through;color:#888;';
+                    painel.appendChild(el);
+                }
+            }
+            else if (comando.startsWith('texto-neon ')) {
+                const match = comando.match(/texto-neon\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) {
+                    const el = document.createElement('span');
+                    el.textContent = match[1];
+                    el.style.cssText = `color:${match[2]};text-shadow:0 0 10px ${match[2]},0 0 20px ${match[2]},0 0 40px ${match[2]};font-size:24px;font-weight:bold;display:inline-block;margin:5px;`;
+                    painel.appendChild(el);
+                }
+            }
+            else if (comando.startsWith('texto-metalico ')) {
+                const match = comando.match(/texto-metalico\s+"([^"]+)"/);
+                if (match) {
+                    const el = document.createElement('span');
+                    el.textContent = match[1];
+                    el.style.cssText = 'background:linear-gradient(45deg,#ffd700,#ffaa00,#ff6b00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:24px;font-weight:bold;display:inline-block;margin:5px;';
+                    painel.appendChild(el);
+                }
+            }
+
+            // ==========================================
+            // CORES E FUNDOS (30 novos)
+            // ==========================================
+            else if (comando.startsWith('cor-fundo ')) {
+                const match = comando.match(/cor-fundo\s+"([^"]+)"/);
+                if (match) painel.style.backgroundColor = match[1];
+            }
+            else if (comando.startsWith('gradiente ')) {
+                const match = comando.match(/gradiente\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) painel.style.background = `linear-gradient(135deg, ${match[1]}, ${match[2]})`;
+            }
+            else if (comando.startsWith('gradiente-radial ')) {
+                const match = comando.match(/gradiente-radial\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) painel.style.background = `radial-gradient(circle, ${match[1]}, ${match[2]})`;
+            }
+            else if (comando.startsWith('gradiente-conico ')) {
+                const match = comando.match(/gradiente-conico\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) painel.style.background = `conic-gradient(from 0deg, ${match[1]}, ${match[2]})`;
+            }
+            else if (comando.startsWith('fundo-imagem ')) {
+                const match = comando.match(/fundo-imagem\s+"([^"]+)"/);
+                if (match) painel.style.backgroundImage = `url(${match[1]})`;
+            }
+            else if (comando.startsWith('fundo-escuro')) {
+                painel.style.backgroundColor = '#1a1a1a';
+                painel.style.color = '#fff';
+            }
+            else if (comando.startsWith('fundo-claro')) {
+                painel.style.backgroundColor = '#f5f5f5';
+                painel.style.color = '#000';
+            }
+            else if (comando.startsWith('fundo-azul')) painel.style.backgroundColor = '#1a237e';
+            else if (comando.startsWith('fundo-verde')) painel.style.backgroundColor = '#1b5e20';
+            else if (comando.startsWith('fundo-vermelho')) painel.style.backgroundColor = '#b71c1c';
+            else if (comando.startsWith('fundo-ouro')) painel.style.backgroundColor = '#f57f17';
+            else if (comando.startsWith('fundo-roxo')) painel.style.backgroundColor = '#4a148c';
+            else if (comando.startsWith('fundo-rosa')) painel.style.backgroundColor = '#880e4f';
+            else if (comando.startsWith('fundo-cinza')) painel.style.backgroundColor = '#424242';
+            else if (comando.startsWith('fundo-preto')) painel.style.backgroundColor = '#000000';
+            else if (comando.startsWith('fundo-branco')) painel.style.backgroundColor = '#ffffff';
+            else if (comando.startsWith('fundo-transparente')) painel.style.backgroundColor = 'transparent';
+
+            // ==========================================
+            // INPUTS (30 novos)
+            // ==========================================
+            else if (comando.startsWith('input-text ')) {
+                const match = comando.match(/input-text\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) criarInput(match[1], 'text', match[2], painel);
+            }
+            else if (comando.startsWith('input-number ')) {
+                const match = comando.match(/input-number\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) criarInput(match[1], 'number', match[2], painel);
+            }
+            else if (comando.startsWith('input-email ')) {
+                const match = comando.match(/input-email\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) criarInput(match[1], 'email', match[2], painel);
+            }
+            else if (comando.startsWith('input-password ')) {
+                const match = comando.match(/input-password\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) criarInput(match[1], 'password', match[2], painel);
+            }
+            else if (comando.startsWith('input-date ')) {
+                const match = comando.match(/input-date\s+"([^"]+)"/);
+                if (match) criarInput(match[1], 'date', '', painel);
+            }
+            else if (comando.startsWith('input-time ')) {
+                const match = comando.match(/input-time\s+"([^"]+)"/);
+                if (match) criarInput(match[1], 'time', '', painel);
+            }
+            else if (comando.startsWith('input-color ')) {
+                const match = comando.match(/input-color\s+"([^"]+)"/);
+                if (match) criarInput(match[1], 'color', '', painel);
+            }
+            else if (comando.startsWith('input-range ')) {
+                const match = comando.match(/input-range\s+"([^"]+)"\s+min=(\d+)\s+max=(\d+)/);
+                if (match) {
+                    const input = criarInput(match[1], 'range', '', painel);
+                    input.min = match[2];
+                    input.max = match[3];
+                }
+            }
+            else if (comando.startsWith('input-search ')) {
+                const match = comando.match(/input-search\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) criarInput(match[1], 'search', match[2], painel);
+            }
+            else if (comando.startsWith('input-tel ')) {
+                const match = comando.match(/input-tel\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) criarInput(match[1], 'tel', match[2], painel);
+            }
+            else if (comando.startsWith('input-url ')) {
+                const match = comando.match(/input-url\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) criarInput(match[1], 'url', match[2], painel);
+            }
+            else if (comando.startsWith('input-file ')) {
+                const match = comando.match(/input-file\s+"([^"]+)"/);
+                if (match) {
+                    const input = criarInput(match[1], 'file', '', painel);
+                    input.onchange = (e) => {
+                        const file = e.target.files[0];
+                        if (file) alert(`📁 Arquivo: ${file.name} (${file.size} bytes)`);
+                    };
+                }
+            }
+            else if (comando.startsWith('textarea-input ')) {
+                const match = comando.match(/textarea-input\s+"([^"]+)"\s+"([^"]+)"(?:\s+linhas=(\d+))?/);
+                if (match) {
+                    const textarea = document.createElement('textarea');
+                    textarea.id = match[1];
+                    textarea.placeholder = match[2];
+                    textarea.rows = match[3] || 5;
+                    textarea.style.cssText = 'width:100%;padding:12px;margin:8px 0;border-radius:8px;border:2px solid #333;background:#1a1a1a;color:#fff;resize:vertical;font-family:inherit;';
+                    painel.appendChild(textarea);
+                    elementos[match[1]] = textarea;
+                }
+            }
+            else if (comando.startsWith('checkbox ')) {
+                const match = comando.match(/checkbox\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) {
+                    const div = document.createElement('div');
+                    div.style.cssText = 'margin:8px 0;';
+                    const input = document.createElement('input');
+                    input.id = match[1];
+                    input.type = 'checkbox';
+                    const label = document.createElement('label');
+                    label.htmlFor = match[1];
+                    label.textContent = match[2];
+                    label.style.cssText = 'color:#fff;margin-left:10px;cursor:pointer;';
+                    div.appendChild(input);
+                    div.appendChild(label);
+                    painel.appendChild(div);
+                    elementos[match[1]] = input;
+                }
+            }
+            else if (comando.startsWith('radio ')) {
+                const match = comando.match(/radio\s+"([^"]+)"\s+"([^"]+)"\s+valor="([^"]+)"/);
+                if (match) {
+                    const div = document.createElement('div');
+                    div.style.cssText = 'margin:8px 0;';
+                    const input = document.createElement('input');
+                    input.id = match[1];
+                    input.type = 'radio';
+                    input.value = match[3];
+                    const label = document.createElement('label');
+                    label.htmlFor = match[1];
+                    label.textContent = match[2];
+                    label.style.cssText = 'color:#fff;margin-left:10px;cursor:pointer;';
+                    div.appendChild(input);
+                    div.appendChild(label);
+                    painel.appendChild(div);
+                    elementos[match[1]] = input;
+                }
+            }
+            else if (comando.startsWith('select ')) {
+                const match = comando.match(/select\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) {
+                    const select = document.createElement('select');
+                    select.id = match[1];
+                    select.style.cssText = 'width:100%;padding:12px;margin:8px 0;border-radius:8px;border:2px solid #333;background:#1a1a1a;color:#fff;';
+                    const opcoes = match[2].split(';');
+                    opcoes.forEach(op => {
+                        const option = document.createElement('option');
+                        option.value = op.trim();
+                        option.textContent = op.trim();
+                        select.appendChild(option);
+                    });
+                    painel.appendChild(select);
+                    elementos[match[1]] = select;
+                }
+            }
+            else if (comando.startsWith('datalist ')) {
+                const match = comando.match(/datalist\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) {
+                    const input = criarInput(match[1] + '-input', 'text', 'Digite ou selecione', painel);
+                    const datalist = document.createElement('datalist');
+                    datalist.id = match[1];
+                    const opcoes = match[2].split(';');
+                    opcoes.forEach(op => {
+                        const option = document.createElement('option');
+                        option.value = op.trim();
+                        datalist.appendChild(option);
+                    });
+                    painel.appendChild(datalist);
+                    input.setAttribute('list', match[1]);
+                }
+            }
+            else if (comando.startsWith('label ')) {
+                const match = comando.match(/label\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) {
+                    const label = document.createElement('label');
+                    label.htmlFor = match[1];
+                    label.textContent = match[2];
+                    label.style.cssText = 'color:#ffd700;font-weight:bold;display:block;margin:5px 0;';
+                    painel.appendChild(label);
+                }
+            }
+
+            // ==========================================
+            // LINKS (20 novos)
+            // ==========================================
+            else if (comando.startsWith('link ')) {
+                const match = comando.match(/link\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) criarLink(match[1], match[2], '_self', '#00ffcc', painel);
+            }
+            else if (comando.startsWith('link-novo ')) {
+                const match = comando.match(/link-novo\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) criarLink(match[1], match[2], '_blank', '#ffd700', painel);
+            }
+            else if (comando.startsWith('link-botao ')) {
+                const match = comando.match(/link-botao\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) {
+                    const a = document.createElement('a');
+                    a.href = match[1];
+                    a.textContent = match[2];
+                    a.target = '_blank';
+                    a.style.cssText = 'background:#00ffcc;color:#000;padding:12px 25px;border-radius:8px;text-decoration:none;display:inline-block;margin:5px;font-weight:bold;transition:all 0.3s;';
+                    a.onmouseover = () => a.style.transform = 'scale(1.05)';
+                    a.onmouseout = () => a.style.transform = 'scale(1)';
+                    painel.appendChild(a);
+                }
+            }
+            else if (comando.startsWith('link-email ')) {
+                const match = comando.match(/link-email\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) criarLink(`mailto:${match[1]}`, match[2], '_self', '#3498db', painel);
+            }
+            else if (comando.startsWith('link-telefone ')) {
+                const match = comando.match(/link-telefone\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) criarLink(`tel:${match[1]}`, match[2], '_self', '#2ecc71', painel);
+            }
+            else if (comando.startsWith('link-whatsapp ')) {
+                const match = comando.match(/link-whatsapp\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) {
+                    const a = document.createElement('a');
+                    a.href = `https://wa.me/${match[1]}`;
+                    a.textContent = match[2];
+                    a.target = '_blank';
+                    a.style.cssText = 'background:#25d366;color:#fff;padding:10px 20px;border-radius:8px;text-decoration:none;display:inline-block;margin:5px;font-weight:bold;';
+                    painel.appendChild(a);
+                }
+            }
+            else if (comando.startsWith('link-instagram ')) {
+                const match = comando.match(/link-instagram\s+"([^"]+)"/);
+                if (match) criarLink(`https://instagram.com/${match[1]}`, `📸 @${match[1]}`, '_blank', '#E4405F', painel);
+            }
+            else if (comando.startsWith('link-twitter ')) {
+                const match = comando.match(/link-twitter\s+"([^"]+)"/);
+                if (match) criarLink(`https://twitter.com/${match[1]}`, `🐦 @${match[1]}`, '_blank', '#1DA1F2', painel);
+            }
+            else if (comando.startsWith('link-youtube ')) {
+                const match = comando.match(/link-youtube\s+"([^"]+)"/);
+                if (match) criarLink(`https://youtube.com/@${match[1]}`, `📺 ${match[1]}`, '_blank', '#FF0000', painel);
+            }
+            else if (comando.startsWith('link-facebook ')) {
+                const match = comando.match(/link-facebook\s+"([^"]+)"/);
+                if (match) criarLink(`https://facebook.com/${match[1]}`, `📘 ${match[1]}`, '_blank', '#1877f2', painel);
+            }
+            else if (comando.startsWith('link-github ')) {
+                const match = comando.match(/link-github\s+"([^"]+)"/);
+                if (match) criarLink(`https://github.com/${match[1]}`, `🐙 ${match[1]}`, '_blank', '#333', painel);
+            }
+            else if (comando.startsWith('link-discord ')) {
+                const match = comando.match(/link-discord\s+"([^"]+)"/);
+                if (match) criarLink(`https://discord.gg/${match[1]}`, `💬 ${match[1]}`, '_blank', '#5865F2', painel);
+            }
+            else if (comando.startsWith('link-tiktok ')) {
+                const match = comando.match(/link-tiktok\s+"([^"]+)"/);
+                if (match) criarLink(`https://tiktok.com/@${match[1]}`, `🎵 @${match[1]}`, '_blank', '#000', painel);
+            }
+            else if (comando.startsWith('link-telegram ')) {
+                const match = comando.match(/link-telegram\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) criarLink(`https://t.me/${match[1]}`, match[2], '_blank', '#26A5E4', painel);
+            }
+
+            // ==========================================
+            // UPLOAD (20 novos)
+            // ==========================================
+            else if (comando.startsWith('upload-arquivo ')) {
+                const match = comando.match(/upload-arquivo\s+"([^"]+)"/);
+                if (match) criarUpload(match[1], '*', painel);
+            }
+            else if (comando.startsWith('upload-imagem ')) {
+                const match = comando.match(/upload-imagem\s+"([^"]+)"/);
+                if (match) criarUpload(match[1], 'image/*', painel);
+            }
+            else if (comando.startsWith('upload-pdf ')) {
+                const match = comando.match(/upload-pdf\s+"([^"]+)"/);
+                if (match) criarUpload(match[1], '.pdf', painel);
+            }
+            else if (comando.startsWith('upload-zip ')) {
+                const match = comando.match(/upload-zip\s+"([^"]+)"/);
+                if (match) criarUpload(match[1], '.zip,.rar,.7z', painel);
+            }
+            else if (comando.startsWith('upload-multiplo ')) {
+                const match = comando.match(/upload-multiplo\s+"([^"]+)"/);
+                if (match) {
+                    const input = criarUpload(match[1], '*', painel);
+                    input.multiple = true;
+                }
+            }
+            else if (comando.startsWith('upload-pasta ')) {
+                const match = comando.match(/upload-pasta\s+"([^"]+)"/);
+                if (match) {
+                    const input = criarUpload(match[1], '*', painel);
+                    input.webkitdirectory = true;
+                }
+            }
+            else if (comando.startsWith('upload-doc ')) {
+                const match = comando.match(/upload-doc\s+"([^"]+)"/);
+                if (match) criarUpload(match[1], '.doc,.docx', painel);
+            }
+            else if (comando.startsWith('upload-xls ')) {
+                const match = comando.match(/upload-xls\s+"([^"]+)"/);
+                if (match) criarUpload(match[1], '.xls,.xlsx', painel);
+            }
+            else if (comando.startsWith('upload-ppt ')) {
+                const match = comando.match(/upload-ppt\s+"([^"]+)"/);
+                if (match) criarUpload(match[1], '.ppt,.pptx', painel);
+            }
+            else if (comando.startsWith('upload-txt ')) {
+                const match = comando.match(/upload-txt\s+"([^"]+)"/);
+                if (match) criarUpload(match[1], '.txt', painel);
+            }
+            else if (comando.startsWith('upload-csv ')) {
+                const match = comando.match(/upload-csv\s+"([^"]+)"/);
+                if (match) criarUpload(match[1], '.csv', painel);
+            }
+            else if (comando.startsWith('upload-json ')) {
+                const match = comando.match(/upload-json\s+"([^"]+)"/);
+                if (match) criarUpload(match[1], '.json', painel);
+            }
+            else if (comando.startsWith('upload-mp3 ')) {
+                const match = comando.match(/upload-mp3\s+"([^"]+)"/);
+                if (match) criarUpload(match[1], '.mp3', painel);
+            }
+            else if (comando.startsWith('upload-mp4 ')) {
+                const match = comando.match(/upload-mp4\s+"([^"]+)"/);
+                if (match) criarUpload(match[1], '.mp4', painel);
+            }
+            else if (comando.startsWith('upload-todos ')) {
+                const match = comando.match(/upload-todos\s+"([^"]+)"/);
+                if (match) criarUpload(match[1], '.pdf,.doc,.xls,.ppt,.txt,.csv,.json,.zip,.rar', painel);
+            }
+
+            // ==========================================
+            // DOWNLOAD (15 novos)
+            // ==========================================
+            else if (comando.startsWith('download-texto ')) {
+                const match = comando.match(/download-texto\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) criarDownload(match[1], match[2], 'text/plain', painel);
+            }
+            else if (comando.startsWith('download-json ')) {
+                const match = comando.match(/download-json\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) criarDownload(match[1], match[2], 'application/json', painel);
+            }
+            else if (comando.startsWith('download-csv ')) {
+                const match = comando.match(/download-csv\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) criarDownload(match[1], match[2], 'text/csv', painel);
+            }
+            else if (comando.startsWith('download-html ')) {
+                const match = comando.match(/download-html\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) criarDownload(match[1], match[2], 'text/html', painel);
+            }
+            else if (comando.startsWith('download-css ')) {
+                const match = comando.match(/download-css\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) criarDownload(match[1], match[2], 'text/css', painel);
+            }
+            else if (comando.startsWith('download-js ')) {
+                const match = comando.match(/download-js\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) criarDownload(match[1], match[2], 'text/javascript', painel);
+            }
+
+            // ==========================================
+            // LAYOUT (30 novos)
+            // ==========================================
+            else if (comando.startsWith('espaco ')) {
+                const match = comando.match(/espaco\s+tamanho=(\d+)/);
+                const size = match ? parseInt(match[1]) : 20;
+                const div = document.createElement('div');
+                div.style.cssText = `height:${size}px;`;
+                painel.appendChild(div);
+            }
+            else if (comando.startsWith('espaco-pequeno')) {
+                const div = document.createElement('div');
+                div.style.cssText = 'height:10px;';
+                painel.appendChild(div);
+            }
+            else if (comando.startsWith('espaco-medio')) {
+                const div = document.createElement('div');
+                div.style.cssText = 'height:25px;';
+                painel.appendChild(div);
+            }
+            else if (comando.startsWith('espaco-grande')) {
+                const div = document.createElement('div');
+                div.style.cssText = 'height:50px;';
+                painel.appendChild(div);
+            }
+            else if (comando.startsWith('espaco-duplo')) {
+                const div = document.createElement('div');
+                div.style.cssText = 'height:80px;';
+                painel.appendChild(div);
+            }
+            else if (comando.startsWith('linha-horizontal')) {
+                const hr = document.createElement('hr');
+                hr.style.cssText = 'border:2px solid #333;margin:20px 0;border-image:linear-gradient(90deg,#00ffcc,#ff6b6b,#ffd700) 1;';
+                painel.appendChild(hr);
+            }
+            else if (comando.startsWith('quebra-linha')) {
+                painel.appendChild(document.createElement('br'));
+            }
+            else if (comando.startsWith('container-flex ')) {
+                const match = comando.match(/container-flex\s+"([^"]+)"/);
+                if (match) {
+                    const div = document.createElement('div');
+                    div.id = match[1];
+                    div.style.cssText = 'display:flex;flex-wrap:wrap;gap:15px;padding:15px;background:#1a1a1a;border-radius:10px;margin:10px 0;border:1px solid #333;';
+                    painel.appendChild(div);
+                    elementos[match[1]] = div;
+                }
+            }
+            else if (comando.startsWith('grid ')) {
+                const match = comando.match(/grid\s+"([^"]+)"\s+colunas=(\d+)/);
+                if (match) {
+                    const div = document.createElement('div');
+                    div.id = match[1];
+                    div.style.cssText = `display:grid;grid-template-columns:repeat(${match[2]},1fr);gap:15px;padding:15px;background:#1a1a1a;border-radius:10px;margin:10px 0;border:1px solid #333;`;
+                    painel.appendChild(div);
+                    elementos[match[1]] = div;
+                }
+            }
+            else if (comando.startsWith('centralizar')) {
+                const div = document.createElement('div');
+                div.style.cssText = 'display:flex;justify-content:center;align-items:center;padding:20px;';
+                painel.appendChild(div);
+            }
+            else if (comando.startsWith('flex-row')) {
+                const div = document.createElement('div');
+                div.style.cssText = 'display:flex;flex-direction:row;gap:10px;padding:10px;background:#1a1a1a;border-radius:8px;margin:5px 0;';
+                painel.appendChild(div);
+            }
+            else if (comando.startsWith('flex-column')) {
+                const div = document.createElement('div');
+                div.style.cssText = 'display:flex;flex-direction:column;gap:10px;padding:10px;background:#1a1a1a;border-radius:8px;margin:5px 0;';
+                painel.appendChild(div);
+            }
+            else if (comando.startsWith('flex-center')) {
+                const div = document.createElement('div');
+                div.style.cssText = 'display:flex;justify-content:center;align-items:center;gap:10px;padding:10px;';
+                painel.appendChild(div);
+            }
+            else if (comando.startsWith('grid-2')) {
+                const div = document.createElement('div');
+                div.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:15px;padding:15px;background:#1a1a1a;border-radius:10px;margin:10px 0;';
+                painel.appendChild(div);
+            }
+            else if (comando.startsWith('grid-3')) {
+                const div = document.createElement('div');
+                div.style.cssText = 'display:grid;grid-template-columns:1fr 1fr 1fr;gap:15px;padding:15px;background:#1a1a1a;border-radius:10px;margin:10px 0;';
+                painel.appendChild(div);
+            }
+            else if (comando.startsWith('grid-4')) {
+                const div = document.createElement('div');
+                div.style.cssText = 'display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:15px;padding:15px;background:#1a1a1a;border-radius:10px;margin:10px 0;';
+                painel.appendChild(div);
+            }
+
+            // ==========================================
+            // BIBLIOTECAS (25 novos)
+            // ==========================================
+            else if (comando.startsWith('usar-bootstrap')) {
+                carregarBiblioteca('bootstrap');
+                alert('✅ Bootstrap carregado!');
+            }
+            else if (comando.startsWith('usar-jquery')) {
+                carregarBiblioteca('jquery');
+                alert('✅ jQuery carregado!');
+            }
+            else if (comando.startsWith('usar-fontawesome')) {
+                carregarBiblioteca('fontawesome');
+                alert('✅ Font Awesome carregado!');
+            }
+            else if (comando.startsWith('usar-react')) {
+                carregarBiblioteca('react');
+                alert('✅ React carregado!');
+            }
+            else if (comando.startsWith('usar-vue')) {
+                carregarBiblioteca('vue');
+                alert('✅ Vue.js carregado!');
+            }
+            else if (comando.startsWith('usar-tailwind')) {
+                carregarBiblioteca('tailwind');
+                alert('✅ Tailwind CSS carregado!');
+            }
+            else if (comando.startsWith('usar-chartjs')) {
+                carregarBiblioteca('chartjs');
+                alert('✅ Chart.js carregado!');
+            }
+            else if (comando.startsWith('usar-threejs')) {
+                carregarBiblioteca('threejs');
+                alert('✅ Three.js carregado!');
+            }
+            else if (comando.startsWith('importar-css ')) {
+                const match = comando.match(/importar-css\s+"([^"]+)"/);
+                if (match) {
+                    const link = document.createElement('link');
+                    link.rel = 'stylesheet';
+                    link.href = match[1];
+                    document.head.appendChild(link);
+                }
+            }
+            else if (comando.startsWith('importar-js ')) {
+                const match = comando.match(/importar-js\s+"([^"]+)"/);
+                if (match) {
+                    const script = document.createElement('script');
+                    script.src = match[1];
+                    document.head.appendChild(script);
+                }
+            }
+            else if (comando.startsWith('importar-fonte ')) {
+                const match = comando.match(/importar-fonte\s+"([^"]+)"/);
+                if (match) {
+                    const link = document.createElement('link');
+                    link.href = `https://fonts.googleapis.com/css2?family=${match[1].replace(/ /g,'+')}&display=swap`;
+                    link.rel = 'stylesheet';
+                    document.head.appendChild(link);
+                    document.body.style.fontFamily = match[1];
+                }
+            }
+
+            // ==========================================
+            // AÇÕES (30 novos)
+            // ==========================================
+            else if (comando.startsWith('onclick ')) {
+                const match = comando.match(/onclick\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) {
+                    const el = elementos[match[1]];
+                    if (el) el.onclick = () => executarAcao(match[2], painel);
+                }
+            }
+            else if (comando.startsWith('ondblclick ')) {
+                const match = comando.match(/ondblclick\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) {
+                    const el = elementos[match[1]];
+                    if (el) el.ondblclick = () => executarAcao(match[2], painel);
+                }
+            }
+            else if (comando.startsWith('onchange ')) {
+                const match = comando.match(/onchange\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) {
+                    const el = elementos[match[1]];
+                    if (el) el.onchange = () => executarAcao(match[2], painel);
+                }
+            }
+            else if (comando.startsWith('oninput ')) {
+                const match = comando.match(/oninput\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) {
+                    const el = elementos[match[1]];
+                    if (el) el.oninput = () => executarAcao(match[2], painel);
+                }
+            }
+            else if (comando.startsWith('onsubmit ')) {
+                const match = comando.match(/onsubmit\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) {
+                    const el = elementos[match[1]];
+                    if (el) el.onsubmit = (e) => { e.preventDefault(); executarAcao(match[2], painel); };
+                }
+            }
+            else if (comando.startsWith('onfocus ')) {
+                const match = comando.match(/onfocus\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) {
+                    const el = elementos[match[1]];
+                    if (el) el.onfocus = () => executarAcao(match[2], painel);
+                }
+            }
+            else if (comando.startsWith('onblur ')) {
+                const match = comando.match(/onblur\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) {
+                    const el = elementos[match[1]];
+                    if (el) el.onblur = () => executarAcao(match[2], painel);
+                }
+            }
+            else if (comando.startsWith('onkeydown ')) {
+                const match = comando.match(/onkeydown\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) {
+                    const el = elementos[match[1]];
+                    if (el) el.onkeydown = (e) => executarAcao(match[2] + ' - Tecla: ' + e.key, painel);
+                }
+            }
+            else if (comando.startsWith('onmouseenter ')) {
+                const match = comando.match(/onmouseenter\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) {
+                    const el = elementos[match[1]];
+                    if (el) el.onmouseenter = () => executarAcao(match[2], painel);
+                }
+            }
+            else if (comando.startsWith('onmouseleave ')) {
+                const match = comando.match(/onmouseleave\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) {
+                    const el = elementos[match[1]];
+                    if (el) el.onmouseleave = () => executarAcao(match[2], painel);
+                }
+            }
+
+            // ==========================================
+            // JOGO (30 novos)
+            // ==========================================
+            else if (comando.startsWith('player ')) {
+                const match = comando.match(/player\s+"([^"]+)"\s+x=(\d+)\s+y=(\d+)/);
+                if (match) {
+                    const el = document.createElement('div');
+                    el.id = match[1];
+                    el.textContent = '🎮';
+                    el.style.cssText = 'position:absolute;font-size:40px;cursor:move;z-index:100;text-shadow:0 0 20px #4CAF5066;';
+                    el.style.left = match[2] + 'px';
+                    el.style.top = match[3] + 'px';
+                    painel.style.position = 'relative';
+                    painel.style.minHeight = '400px';
+                    painel.appendChild(el);
+                    elementos[match[1]] = el;
+                }
+            }
+            else if (comando.startsWith('obstaculo ')) {
+                const match = comando.match(/obstaculo\s+"([^"]+)"\s+x=(\d+)\s+y=(\d+)/);
+                if (match) {
+                    const el = document.createElement('div');
+                    el.id = match[1];
+                    el.textContent = '🚫';
+                    el.style.cssText = 'position:absolute;font-size:35px;z-index:90;';
+                    el.style.left = match[2] + 'px';
+                    el.style.top = match[3] + 'px';
+                    el.dataset.gameType = 'obstaculo';
+                    painel.appendChild(el);
+                    elementos[match[1]] = el;
+                }
+            }
+            else if (comando.startsWith('moeda ')) {
+                const match = comando.match(/moeda\s+"([^"]+)"\s+x=(\d+)\s+y=(\d+)\s+valor=(\d+)/);
+                if (match) {
+                    const el = document.createElement('div');
+                    el.id = match[1];
+                    el.textContent = '⭐';
+                    el.style.cssText = 'position:absolute;font-size:35px;z-index:95;animation:pular 1s infinite;text-shadow:0 0 20px #ffd70066;';
+                    el.style.left = match[2] + 'px';
+                    el.style.top = match[3] + 'px';
+                    el.dataset.valor = match[4];
+                    if (!document.querySelector('style[data-pular]')) {
+                        const style = document.createElement('style');
+                        style.dataset.pular = 'true';
+                        style.textContent = '@keyframes pular{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}';
+                        document.head.appendChild(style);
+                    }
+                    painel.appendChild(el);
+                    elementos[match[1]] = el;
+                }
+            }
+            else if (comando.startsWith('colising ')) {
+                const match = comando.match(/colising\s+"([^"]+)"\s+"([^"]+)"/);
+                if (match) {
+                    if (!colisoes[match[1]]) colisoes[match[1]] = {};
+                    colisoes[match[1]].player = match[2];
+                }
+            }
+            else if (comando.startsWith('start-player ')) {
+                const match = comando.match(/start-player\s+"([^"]+)"/);
+                if (match) iniciarPlayer8(match[1], painel);
+            }
+            else if (comando.startsWith('game-over ')) {
+                const match = comando.match(/game-over\s+"([^"]+)"/);
+                if (match) {
+                    const div = document.createElement('div');
+                    div.textContent = `💀 GAME OVER - ${match[1]}`;
+                    div.style.cssText = 'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#e74c3c;color:#fff;padding:30px 50px;border-radius:20px;font-size:2em;font-weight:bold;z-index:200;box-shadow:0 0 50px #e74c3c66;';
+                    painel.appendChild(div);
+                }
+            }
+            else if (comando.startsWith('vida ')) {
+                const match = comando.match(/vida\s+"([^"]+)"\s+valor=(\d+)/);
+                if (match) {
+                    const el = document.createElement('div');
+                    el.id = match[1];
+                    el.textContent = `❤️ ${match[2]}`;
+                    el.style.cssText = 'position:absolute;top:10px;right:10px;color:#ff6b6b;font-size:24px;font-weight:bold;z-index:50;';
+                    painel.appendChild(el);
+                    elementos[match[1]] = el;
+                }
+            }
+            else if (comando.startsWith('pontuacao ')) {
+                const match = comando.match(/pontuacao\s+"([^"]+)"/);
+                if (match) {
+                    const el = document.createElement('div');
+                    el.id = match[1];
+                    el.textContent = '⭐ 0';
+                    el.style.cssText = 'position:absolute;top:10px;left:10px;color:#ffd700;font-size:24px;font-weight:bold;z-index:50;';
+                    painel.appendChild(el);
+                    elementos[match[1]] = el;
+                }
+            }
+
+            // ==========================================
+            // MÍDIA (20 novos)
+            // ==========================================
+            else if (comando.startsWith('imagem ')) {
+                const match = comando.match(/imagem\s+"([^"]+)"\s+src="([^"]+)"\s+alt="([^"]+)"/);
+                if (match) {
+                    const img = document.createElement('img');
+                    img.id = match[1];
+                    img.src = match[2];
+                    img.alt = match[3];
+                    img.style.cssText = 'max-width:100%;border-radius:10px;margin:10px 0;';
+                    painel.appendChild(img);
+                    elementos[match[1]] = img;
+                }
+            }
+            else if (comando.startsWith('video ')) {
+                const match = comando.match(/video\s+"([^"]+)"\s+src="([^"]+)"/);
+                if (match) {
+                    const video = document.createElement('video');
+                    video.id = match[1];
+                    video.src = match[2];
+                    video.controls = true;
+                    video.style.cssText = 'max-width:100%;border-radius:10px;margin:10px 0;';
+                    painel.appendChild(video);
+                    elementos[match[1]] = video;
+                }
+            }
+            else if (comando.startsWith('audio ')) {
+                const match = comando.match(/audio\s+"([^"]+)"\s+src="([^"]+)"/);
+                if (match) {
+                    const audio = document.createElement('audio');
+                    audio.id = match[1];
+                    audio.src = match[2];
+                    audio.controls = true;
+                    audio.style.cssText = 'width:100%;margin:10px 0;';
+                    painel.appendChild(audio);
+                    elementos[match[1]] = audio;
+                }
+            }
+            else if (comando.startsWith('iframe ')) {
+                const match = comando.match(/iframe\s+"([^"]+)"\s+src="([^"]+)"\s+altura=(\d+)/);
+                if (match) {
+                    const iframe = document.createElement('iframe');
+                    iframe.id = match[1];
+                    iframe.src = match[2];
+                    iframe.height = match[3];
+                    iframe.style.cssText = 'width:100%;border-radius:10px;margin:10px 0;border:2px solid #333;';
+                    painel.appendChild(iframe);
+                    elementos[match[1]] = iframe;
+                }
+            }
+            else if (comando.startsWith('canvas ')) {
+                const match = comando.match(/canvas\s+"([^"]+)"\s+largura=(\d+)\s+altura=(\d+)/);
+                if (match) {
+                    const canvas = document.createElement('canvas');
+                    canvas.id = match[1];
+                    canvas.width = match[2];
+                    canvas.height = match[3];
+                    canvas.style.cssText = 'border:2px solid #333;border-radius:10px;margin:10px 0;background:#1a1a1a;';
+                    painel.appendChild(canvas);
+                    elementos[match[1]] = canvas;
+                }
+            }
+
+            // ==========================================
+            // BANCO DE DADOS (15 novos)
+            // ==========================================
+            else if (comando.startsWith('armazenar ')) {
+                const match = comando.match(/armazenar\s+chave="([^"]+)"\s+valor="([^"]+)"/);
+                if (match) {
+                    localStorage.setItem(match[1], match[2]);
+                    alert(`✅ Dado armazenado: ${match[1]} = ${match[2]}`);
+                }
+            }
+            else if (comando.startsWith('recuperar ')) {
+                const match = comando.match(/recuperar\s+chave="([^"]+)"/);
+                if (match) {
+                    const valor = localStorage.getItem(match[1]);
+                    alert(`📦 ${match[1]} = ${valor || 'Não encontrado'}`);
+                }
+            }
+            else if (comando.startsWith('remover-storage ')) {
+                const match = comando.match(/remover-storage\s+chave="([^"]+)"/);
+                if (match) {
+                    localStorage.removeItem(match[1]);
+                    alert(`🗑️ Dado removido: ${match[1]}`);
+                }
+            }
+            else if (comando.startsWith('limpar-storage')) {
+                localStorage.clear();
+                alert('🗑️ Todos os dados removidos!');
+            }
+
+            // ==========================================
+            // REDE (15 novos)
+            // ==========================================
+            else if (comando.startsWith('requisicao ')) {
+                const match = comando.match(/requisicao\s+url="([^"]+)"\s+metodo="([^"]+)"/);
+                if (match) {
+                    fetch(match[1], { method: match[2] })
+                        .then(res => res.text())
+                        .then(data => alert(`📡 Resposta: ${data.substring(0, 200)}...`))
+                        .catch(err => alert(`❌ Erro: ${err}`));
+                }
+            }
+            else if (comando.startsWith('api ')) {
+                const match = comando.match(/api\s+url="([^"]+)"\s+metodo="([^"]+)"/);
+                if (match) {
+                    fetch(match[1], { method: match[2] })
+                        .then(res => res.json())
+                        .then(data => alert(`📡 API Response: ${JSON.stringify(data).substring(0, 200)}...`))
+                        .catch(err => alert(`❌ Erro: ${err}`));
+                }
+            }
+
+            // ==========================================
+            // UTILIDADES (25 novos)
+            // ==========================================
+            else if (comando.startsWith('alert ')) {
+                const match = comando.match(/alert\s+"([^"]+)"/);
+                if (match) alert(match[1]);
+            }
+            else if (comando.startsWith('confirm ')) {
+                const match = comando.match(/confirm\s+"([^"]+)"/);
+                if (match) confirm(match[1]);
+            }
+            else if (comando.startsWith('prompt ')) {
+                const match = comando.match(/prompt\s+"([^"]+)"/);
+                if (match) prompt(match[1]);
+            }
+            else if (comando.startsWith('console ')) {
+                const match = comando.match(/console\s+"([^"]+)"/);
+                if (match) console.log(match[1]);
+            }
+            else if (comando.startsWith('sucesso ')) {
+                const match = comando.match(/sucesso\s+"([^"]+)"/);
+                if (match) criarMensagem(match[1], '#2ecc71', painel);
+            }
+            else if (comando.startsWith('erro ')) {
+                const match = comando.match(/erro\s+"([^"]+)"/);
+                if (match) criarMensagem(match[1], '#e74c3c', painel);
+            }
+            else if (comando.startsWith('info ')) {
+                const match = comando.match(/info\s+"([^"]+)"/);
+                if (match) criarMensagem(match[1], '#3498db', painel);
+            }
+            else if (comando.startsWith('aviso ')) {
+                const match = comando.match(/aviso\s+"([^"]+)"/);
+                if (match) criarMensagem(match[1], '#f39c12', painel);
+            }
+            else if (comando.startsWith('math-random ')) {
+                const match = comando.match(/math-random\s+min=(\d+)\s+max=(\d+)/);
+                if (match) {
+                    const min = parseInt(match[1]);
+                    const max = parseInt(match[2]);
+                    const num = Math.floor(Math.random() * (max - min + 1)) + min;
+                    alert(`🎲 Número aleatório: ${num}`);
+                }
+            }
+            else if (comando.startsWith('data-hora')) {
+                const agora = new Date();
+                alert(`📅 Data: ${agora.toLocaleDateString()}\n⏰ Hora: ${agora.toLocaleTimeString()}`);
+            }
+
+            // ==========================================
+            // COMANDOS LEGADOS (Mantidos)
+            // ==========================================
+            else if (comando.startsWith('linhe ')) {
+                const match = comando.match(/linhe\s+"([^"]+)"/);
+                if (match) {
+                    const div = document.createElement('div');
+                    div.textContent = match[1];
+                    div.style.cssText = 'background:#2d2d2d;color:#ffd700;padding:8px 15px;margin:3px 0;border-left:3px solid #ffd700;';
+                    painel.appendChild(div);
+                }
+            }
+            else if (comando.startsWith('message id ')) {
+                const partes = comando.match(/"([^"]+)"/g);
+                if (partes && partes.length >= 2) {
+                    const id = partes[0].replace(/"/g, '');
+                    const texto = partes[1].replace(/"/g, '');
+                    const el = document.createElement('button');
+                    el.id = id;
+                    el.textContent = texto;
+                    el.style.cssText = 'background:#4a4a4a;color:#fff;padding:12px 25px;margin:5px;border:none;border-radius:5px;cursor:pointer;font-weight:bold;transition:all 0.3s;';
+                    el.onmouseover = () => el.style.background = '#6a6a6a';
+                    el.onmouseout = () => el.style.background = '#4a4a4a';
+                    painel.appendChild(el);
+                    elementos[id] = el;
+                }
+            }
+            else if (comando.startsWith('istility ')) {
+                const idMatch = comando.match(/id message "([^"]+)"/);
+                if (idMatch) {
+                    const id = idMatch[1];
+                    const el = elementos[id];
+                    if (el) {
+                        const styleMatch = comando.match(/"([^"]+)"/g);
+                        if (styleMatch && styleMatch.length > 1) {
+                            const estilos = styleMatch[1].replace(/"/g, '').split(';');
+                            estilos.forEach(est => {
+                                const [prop, valor] = est.split(':');
+                                if (prop && valor) {
+                                    const p = prop.trim().toLowerCase();
+                                    const v = valor.trim();
+                                    if (p === 'cor') el.style.backgroundColor = v;
+                                    else if (p === 'texto') el.style.color = v;
+                                    else if (p === 'fonte') el.style.fontSize = v;
+                                    else if (p === 'borda') el.style.border = v;
+                                    else if (p === 'radius') el.style.borderRadius = v;
+                                    else if (p === 'sombra') el.style.boxShadow = v;
+                                    else if (p === 'opacidade') el.style.opacity = v;
+                                    else if (p === 'largura') el.style.width = v;
+                                    else if (p === 'altura') el.style.height = v;
+                                    else if (p === 'padding') el.style.padding = v;
+                                    else if (p === 'margin') el.style.margin = v;
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+            else if (comando.startsWith('asion id ')) {
+                const idMatch = comando.match(/id\s*"([^"]+)"/);
+                if (idMatch) {
+                    const id = idMatch[1];
+                    const el = elementos[id];
+                    if (el && comando.includes('click alert')) {
+                        const msgMatch = comando.match(/alert\s+"([^"]+)"/);
+                        if (msgMatch) el.onclick = () => alert(msgMatch[1]);
+                    }
+                }
+            }
+            else if (comando.startsWith('variavel ')) {
+                const nomeMatch = comando.match(/nome="([^"]+)"/);
+                const valorMatch = comando.match(/valor=([^\s]+)/);
+                if (nomeMatch && valorMatch) {
+                    const nome = nomeMatch[1];
+                    const valor = isNaN(valorMatch[1]) ? valorMatch[1] : parseInt(valorMatch[1]);
+                    variaveis[nome] = valor;
+                    console.log(`📊 ${nome} = ${valor}`);
+                }
+            }
+            else if (comando.startsWith('condicao ')) {
+                const ifMatch = comando.match(/if\s+"([^"]+)"/);
+                const entaoMatch = comando.match(/entao="([^"]+)"/);
+                if (ifMatch && entaoMatch) {
+                    try {
+                        let cond = ifMatch[1];
+                        Object.keys(variaveis).forEach(v => {
+                            cond = cond.replace(new RegExp(`\\b${v}\\b`, 'g'), variaveis[v]);
+                        });
+                        if (eval(cond)) {
+                            const acao = entaoMatch[1];
+                            if (acao.startsWith('alert:')) alert(acao.replace('alert:', ''));
+                            else if (acao.startsWith('console:')) console.log(acao.replace('console:', ''));
+                            else if (acao.startsWith('sucesso:')) criarMensagem(acao.replace('sucesso:', ''), '#2ecc71', painel);
+                            else if (acao.startsWith('erro:')) criarMensagem(acao.replace('erro:', ''), '#e74c3c', painel);
+                            else if (acao.startsWith('info:')) criarMensagem(acao.replace('info:', ''), '#3498db', painel);
+                            else if (acao.startsWith('aviso:')) criarMensagem(acao.replace('aviso:', ''), '#f39c12', painel);
+                        }
+                    } catch(e) {}
+                }
+            }
+            else if (comando.startsWith('timer ')) {
+                const tempoMatch = comando.match(/tempo=(\d+)/);
+                const acaoMatch = comando.match(/acao="([^"]+)"/);
+                if (tempoMatch && acaoMatch) {
+                    const timer = setTimeout(() => {
+                        const acao = acaoMatch[1];
+                        if (acao.startsWith('alert:')) alert(acao.replace('alert:', ''));
+                        else if (acao.startsWith('console:')) console.log(acao.replace('console:', ''));
+                        else if (acao.startsWith('sucesso:')) criarMensagem(acao.replace('sucesso:', ''), '#2ecc71', painel);
+                        else if (acao.startsWith('erro:')) criarMensagem(acao.replace('erro:', ''), '#e74c3c', painel);
+                        else if (acao.startsWith('info:')) criarMensagem(acao.replace('info:', ''), '#3498db', painel);
+                        else if (acao.startsWith('aviso:')) criarMensagem(acao.replace('aviso:', ''), '#f39c12', painel);
+                    }, parseInt(tempoMatch[1]));
+                    timers.push(timer);
+                }
+            }
+            else if (comando.startsWith('repetir ')) {
+                const vezesMatch = comando.match(/vezes=(\d+)/);
+                const acaoMatch = comando.match(/acao="([^"]+)"/);
+                if (vezesMatch && acaoMatch) {
+                    const vezes = parseInt(vezesMatch[1]);
+                    const acao = acaoMatch[1];
+                    for (let i = 0; i < vezes; i++) {
+                        if (acao.startsWith('alert:')) alert(acao.replace('alert:', '') + ` (${i+1}/${vezes})`);
+                        else if (acao.startsWith('console:')) console.log(acao.replace('console:', '') + ` (${i+1}/${vezes})`);
+                    }
+                }
+            }
+        }
+
+        // ============================================
+        // FUNÇÕES AUXILIARES
+        // ============================================
+
+        function criarInput(id, type, placeholder, painel) {
+            const input = document.createElement('input');
+            input.id = id;
+            input.type = type;
+            input.placeholder = placeholder || '';
+            input.style.cssText = 'width:100%;padding:12px;margin:8px 0;border-radius:8px;border:2px solid #333;background:#1a1a1a;color:#fff;font-size:16px;transition:border-color 0.3s;';
+            input.onfocus = () => input.style.borderColor = '#00ffcc';
+            input.onblur = () => input.style.borderColor = '#333';
+            painel.appendChild(input);
+            elementos[id] = input;
+            return input;
+        }
+
+        function criarLink(url, texto, target, cor, painel) {
+            const a = document.createElement('a');
+            a.href = url;
+            a.textContent = texto;
+            a.target = target;
+            a.style.cssText = `color:${cor};text-decoration:none;display:inline-block;margin:5px;padding:5px 15px;border:2px solid ${cor};border-radius:8px;transition:all 0.3s;`;
+            a.onmouseover = () => { a.style.background = cor + '22'; a.style.transform = 'scale(1.05)'; };
+            a.onmouseout = () => { a.style.background = 'transparent'; a.style.transform = 'scale(1)'; };
+            painel.appendChild(a);
+            return a;
+        }
+
+        function criarUpload(id, accept, painel) {
+            const input = document.createElement('input');
+            input.id = id;
+            input.type = 'file';
+            input.accept = accept;
+            input.style.cssText = 'width:100%;padding:12px;margin:8px 0;border:2px dashed #333;border-radius:8px;background:#1a1a1a;color:#fff;cursor:pointer;';
+            input.onchange = (e) => {
+                const files = e.target.files;
+                if (files.length > 0) {
+                    const msg = `📁 ${files.length} arquivo(s) selecionado(s)`;
+                    alert(msg);
+                    criarMensagem(msg, '#00ffcc', painel);
+                }
+            };
+            painel.appendChild(input);
+            elementos[id] = input;
+            return input;
+        }
+
+        function criarDownload(conteudo, nome, tipo, painel) {
+            const btn = document.createElement('button');
+            btn.textContent = `📥 Baixar ${nome}`;
+            btn.style.cssText = 'background:#3498db;color:#fff;padding:12px 25px;border:none;border-radius:8px;cursor:pointer;margin:5px;font-weight:bold;transition:all 0.3s;';
+            btn.onmouseover = () => btn.style.transform = 'scale(1.05)';
+            btn.onmouseout = () => btn.style.transform = 'scale(1)';
+            btn.onclick = () => {
+                const blob = new Blob([conteudo], { type: tipo });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = nome;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                criarMensagem(`✅ Download de ${nome} iniciado!`, '#2ecc71', painel);
+            };
+            painel.appendChild(btn);
+            return btn;
+        }
+
+        function criarMensagem(texto, cor, painel) {
+            const div = document.createElement('div');
+            div.textContent = texto;
+            div.style.cssText = `background:${cor}22;color:${cor};padding:12px 20px;border:2px solid ${cor};border-radius:8px;margin:8px 0;font-weight:bold;`;
+            painel.appendChild(div);
+            return div;
+        }
+
+        function executarAcao(acao, painel) {
+            if (acao.startsWith('alert:')) alert(acao.replace('alert:', ''));
+            else if (acao.startsWith('console:')) console.log(acao.replace('console:', ''));
+            else if (acao.startsWith('sucesso:')) criarMensagem(acao.replace('sucesso:', ''), '#2ecc71', painel);
+            else if (acao.startsWith('erro:')) criarMensagem(acao.replace('erro:', ''), '#e74c3c', painel);
+            else if (acao.startsWith('info:')) criarMensagem(acao.replace('info:', ''), '#3498db', painel);
+            else if (acao.startsWith('aviso:')) criarMensagem(acao.replace('aviso:', ''), '#f39c12', painel);
+            else if (acao.startsWith('cor-fundo:')) {
+                painel.style.backgroundColor = acao.replace('cor-fundo:', '');
+            }
+            else if (acao.startsWith('variavel:')) {
+                const parts = acao.replace('variavel:', '').split('=');
+                if (parts.length === 2) {
+                    variaveis[parts[0]] = parseInt(parts[1]) || 0;
+                    console.log(`📊 ${parts[0]} = ${variaveis[parts[0]]}`);
+                }
+            }
+            else {
+                alert(`🎯 Ação executada: ${acao}`);
+            }
+        }
+
+        function carregarBiblioteca(nome) {
+            const bibliotecas = {
+                'bootstrap': { css: 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css', js: 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js' },
+                'jquery': { js: 'https://code.jquery.com/jquery-3.7.0.min.js' },
+                'fontawesome': { css: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css' },
+                'react': { js: 'https://unpkg.com/react@18/umd/react.production.min.js', js2: 'https://unpkg.com/react-dom@18/umd/react-dom.production.min.js' },
+                'vue': { js: 'https://unpkg.com/vue@3/dist/vue.global.js' },
+                'tailwind': { css: 'https://cdn.tailwindcss.com' },
+                'chartjs': { js: 'https://cdn.jsdelivr.net/npm/chart.js' },
+                'threejs': { js: 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js' }
+            };
+
+            const lib = bibliotecas[nome];
+            if (!lib) return;
+
+            if (lib.css) {
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = lib.css;
+                document.head.appendChild(link);
+            }
+            if (lib.js) {
+                const script = document.createElement('script');
+                script.src = lib.js;
+                document.head.appendChild(script);
+            }
+            if (lib.js2) {
+                const script = document.createElement('script');
+                script.src = lib.js2;
+                document.head.appendChild(script);
+            }
+        }
+
+        function iniciarPlayer8(id, painel) {
+            const el = elementos[id];
+            if (!el) return;
+            
+            painel.style.position = 'relative';
+            el.style.position = 'absolute';
+            el.style.zIndex = '100';
+            let x = parseInt(el.style.left) || 20;
+            let y = parseInt(el.style.top) || 60;
+            const teclas = { w: false, a: false, s: false, d: false };
+            
+            document.addEventListener('keydown', (e) => {
+                const t = e.key.toLowerCase();
+                if (t in teclas) { teclas[t] = true; e.preventDefault(); }
+            });
+            document.addEventListener('keyup', (e) => {
+                const t = e.key.toLowerCase();
+                if (t in teclas) teclas[t] = false;
+            });
+            
+            function checarColisao8(nx, ny) {
+                const r1 = { left: nx, top: ny, right: nx + 50, bottom: ny + 50 };
+                let colidiu = false;
+                Object.keys(elementos).forEach(id2 => {
+                    const obj = elementos[id2];
+                    if (obj === el || !obj.dataset) return;
+                    if (obj.dataset.gameType !== 'obstaculo') return;
+                    const r2 = { left: obj.offsetLeft, top: obj.offsetTop, right: obj.offsetLeft + 40, bottom: obj.offsetTop + 40 };
+                    if (r1.left < r2.right && r1.right > r2.left && r1.top < r2.bottom && r1.bottom > r2.top) {
+                        colidiu = true;
+                        if (colisoes[id2] && colisoes[id2].player === id) {
+                            const cfg = colisoes[id2];
+                            if (cfg.acao === 'alert') alert(cfg.valor || 'Colisão!');
+                        }
+                    }
+                    // Verificar moedas
+                    if (obj.textContent === '⭐' || obj.textContent === '💎' || obj.textContent === '🎯') {
+                        const r2 = { left: obj.offsetLeft, top: obj.offsetTop, right: obj.offsetLeft + 40, bottom: obj.offsetTop + 40 };
+                        if (r1.left < r2.right && r1.right > r2.left && r1.top < r2.bottom && r1.bottom > r2.top) {
+                            const valor = parseInt(obj.dataset.valor) || 10;
+                            alert(`💰 +${valor} pontos!`);
+                            obj.style.display = 'none';
+                            setTimeout(() => {
+                                obj.style.display = 'block';
+                                obj.style.left = Math.random() * 400 + 50 + 'px';
+                                obj.style.top = Math.random() * 300 + 50 + 'px';
+                            }, 2000);
+                        }
+                    }
+                });
+                return colidiu;
+            }
+            
+            if (loopAtivo) clearInterval(loopAtivo);
+            loopAtivo = setInterval(() => {
+                let vel = 5, nx = x, ny = y;
+                if (teclas.w) ny -= vel;
+                if (teclas.s) ny += vel;
+                if (teclas.a) nx -= vel;
+                if (teclas.d) nx += vel;
+                
+                if (!checarColisao8(nx, y)) x = nx;
+                if (!checarColisao8(x, ny)) y = ny;
+                
+                el.style.left = x + 'px';
+                el.style.top = y + 'px';
+            }, 1000/60);
+        }
+
+        // ============================================
+        // FUNÇÕES DA INTERFACE
+        // ============================================
+
+        function limpar() {
+            document.getElementById('codigo').value = '';
+            document.getElementById('painel').innerHTML = '';
+            if (loopAtivo) clearInterval(loopAtivo);
+            timers.forEach(t => clearTimeout(t));
+            loops.forEach(l => clearInterval(l));
+            elementos = {};
+            variaveis = {};
+            colisoes = {};
+            timers = [];
+            loops = [];
+        }
+
+        function exemploIoruba() {
+            const exemplo = `administract>c>`;
+
+            document.getElementById('codigo').value = exemplo;
+            executar();
+        }
+
+        function mostrarComandos() {
+            const lista = document.getElementById('lista-comandos');
+            const grid = document.getElementById('comandos-grid');
+            
+            if (lista.style.display === 'block') {
+                lista.style.display = 'none';
+                return;
+            }
+            
+            lista.style.display = 'block';
+            grid.innerHTML = '';
+            
+            // Gerar lista de comandos
+            const categorias = {
+                '📝 Texto (30)': comandos8.texto,
+                '🎨 Cores (30)': comandos8.cores,
+                '📝 Inputs (30)': comandos8.inputs,
+                '🔗 Links (20)': comandos8.links,
+                '📁 Upload (20)': comandos8.upload,
+                '📦 Download (15)': comandos8.download,
+                '📐 Layout (30)': comandos8.layout,
+                '📚 Bibliotecas (25)': comandos8.bibliotecas,
+                '🎯 Ações (30)': comandos8.acoes,
+                '🎮 Jogo (30)': comandos8.jogo,
+                '🎬 Mídia (20)': comandos8.midia,
+                '💾 Banco (15)': comandos8.banco,
+                '🌐 Rede (15)': comandos8.rede,
+                '🔧 Utilidades (25)': comandos8.utilidades,
+                '🎨 Interface (25)': comandos8.interface,
+                '✨ Animação (20)': comandos8.animacao
+            };
+            
+            Object.keys(categorias).forEach(cat => {
+                const catDiv = document.createElement('div');
+                catDiv.innerHTML = `<span class="categoria">${cat}</span>`;
+                grid.appendChild(catDiv);
+                
+                categorias[cat].forEach(cmd => {
+                    const span = document.createElement('span');
+                    span.className = 'comando-item';
+                    span.innerHTML = `${cmd} <span>...</span>`;
+                    grid.appendChild(span);
+                });
+            });
+            
+            const total = Object.values(categorias).reduce((acc, arr) => acc + arr.length, 0);
+            const titulo = document.createElement('div');
+            titulo.style.cssText = 'color:#ffd700;margin:10px 0;font-weight:bold;';
+            titulo.textContent = `📊 Total de Comandos: ${total}`;
+            grid.prepend(titulo);
+        }
+
+        function compilar() {
+            const codigo = document.getElementById('codigo').value;
+            if (!codigo.trim()) {
+                alert('Digite algum código Administract primeiro!');
+                return;
+            }
+            
+            const html = `<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Administract 8.0 App</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#fff;font-family:'Courier New',monospace;padding:20px;min-height:100vh}
+#app{max-width:1200px;margin:0 auto;background:#1a1a1a;border-radius:20px;padding:30px;border:1px solid #00ffcc33}
+#painel{background:#0d0d0d;border:2px solid #333;border-radius:10px;padding:30px;min-height:400px;position:relative;overflow:hidden}
+@keyframes piscar{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes pular{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+</style>
+</head>
+<body>
+<div id="app"><div id="painel"></div></div>
+<script>
+const elementos={},variaveis={},colisoes={},timers=[];let loopAtivo=null;
+const painel=document.getElementById('painel');
+const linhas = ${JSON.stringify(codigo.split('\n').map(l=>l.trim()).filter(l=>l))};
+${interpretar8.toString()}
+${criarInput.toString()}
+${criarLink.toString()}
+${criarUpload.toString()}
+${criarDownload.toString()}
+${criarMensagem.toString()}
+${executarAcao.toString()}
+${carregarBiblioteca.toString()}
+${iniciarPlayer8.toString()}
+linhas.forEach(linha=>{
+    const cmds=linha.split(';').map(c=>c.trim());
+    cmds.forEach(cmd=>{
+        if(!cmd)return;
+        let c=cmd;
+        if(cmd.startsWith('administract>c>'))c=cmd.replace('administract>c>','').trim();
+        interpretar8(c,painel);
+    });
+});
+<\/script>
+</body>
+</html>`;
+
+            const blob = new Blob([html], { type: 'text/html' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'administract8-app.html';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Carregar exemplo automaticamente
+        window.onload = function() {
+            exemploIoruba();
+        };
+    </script>
+
+<script>
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js")
+            .then(() => console.log("Service Worker registrado!"))
+            .catch(err => console.error(err));
+    });
+}
+</script>
+
+</body>
+</html>
