@@ -1,4 +1,4 @@
-const CACHE_NAME = "administract-v1";
+const CACHE_NAME = "administract-v2";
 
 const FILES_TO_CACHE = [
     "./",
