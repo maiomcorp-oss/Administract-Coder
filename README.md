@@ -1,6 +1,6 @@
 # Administract Coder
 
-Administract Coder é uma ferramenta desenvolvida para facilitar a gestão e automatização de processos de desenvolvimento e administração de sistemas. O projeto visa integrar funcionalidades de codificação, organização e controle em um único ambiente intuitivo e eficiente.
+Administract Coder é uma ferramenta desenvolvida para facilitar a gestão e automatização de processos de desenvolvimento de paginas de sites . O projeto visa integrar funcionalidades de codificação, organização e controle em um único ambiente intuitivo e eficiente.
 
 ## Funcionalidades
 
